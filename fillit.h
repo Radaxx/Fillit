@@ -6,7 +6,7 @@
 /*   By: aparabos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:54:25 by aparabos          #+#    #+#             */
-/*   Updated: 2017/11/13 18:58:37 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/11/14 17:17:05 by aparabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ size_t				ft_countline(char *buffer, char c);
 
 int					ft_strlen(char *str);
 int					ft_error(char *str, int fd);
-int					ft_check_tetris_total(char **str);
-int					ft_check_char(char **str);
-int					ft_check_tetris_number(char **str);
-int					ft_check_size(char **str);
+int					ft_check_char(char **str, int nb_line);
+int					ft_check_tetris_number(char **str, int nb_line);
+int					ft_check_size(char **str, int nb_line);
+int					ft_check(char **str, int nb_line);
+int					ft_nbline(char *buffer);
 
 char				*ft_strnew(size_t size);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 
-int					ft_check(char **str);
 char				**ft_dimcor(char *buffer);
 char				**ft_storage(char *buffer);
 char				**ft_strsplit(char const *s, char c);

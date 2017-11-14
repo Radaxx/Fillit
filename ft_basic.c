@@ -6,7 +6,7 @@
 /*   By: aparabos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:47:01 by aparabos          #+#    #+#             */
-/*   Updated: 2017/11/13 18:40:16 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/11/14 16:19:10 by aparabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 		i++;
 		start++;
 	}
+	tmp[i] = '\0';
 	return (tmp);
 }
