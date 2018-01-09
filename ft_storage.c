@@ -6,7 +6,7 @@
 /*   By: aparabos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 16:41:30 by aparabos          #+#    #+#             */
-/*   Updated: 2017/11/14 17:04:11 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/12/01 14:37:39 by ccharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t		ft_nbtetris(char *buffer)
 	return (nb_tetris);
 }
 
-int		ft_nbline(char *buffer)
+int			ft_nbline(char *buffer)
 {
 	int		i;
 	int		nb_line;
@@ -45,39 +45,39 @@ int		ft_nbline(char *buffer)
 	return (nb_line);
 }
 
-char	**ft_storage(char *buffer)
+void		ft_check(char **str, int nb_line)
 {
-	char	**str;
-	size_t	i;
+	t_var	var;
 
-	i  = 0;
-	str = ft_dimcor(buffer);
-	ft_check(str, ft_nbline(buffer));
-	ft_putstr("FT_CHECK PASS\n");
-	str = ft_changechar(str);
-	ft_putstr("FT_CHANGECHAR PASS\n");
-	while (str[i])
-		ft_putstr(str[i++]);
-	return (str);
+	var.i = 0;
+	var.j = 0;
+	var.nb_tetris = 0;
+	var.lk = 0;
+	if ((ft_check_size(str, nb_line)) == 1)
+		ft_error("error\n", 1);
+	if ((ft_check_char(str, nb_line)) == 1)
+		ft_error("error\n", 1);
+	if ((ft_check_tetris_number(str, nb_line, &var)) == 1)
+		ft_error("error\n", 1);
 }
 
 char		**ft_dimcor(char *buffer)
 {
 	size_t	i;
 	size_t	j;
-	size_t  start;
+	size_t	start;
 	size_t	len;
 	char	**dim;
 
 	i = 0;
 	len = 0;
 	j = 0;
-	if (!(dim = (char **)malloc(sizeof(char*) * ft_nbline(buffer) + 1)))
+	if (!(dim = (char **)malloc(sizeof(char *) * ft_nbline(buffer) + 1)))
 		return (NULL);
 	while (buffer[i])
 	{
 		start = i;
-		while (buffer[i] != '\n')
+		while (buffer[i] && buffer[i] != '\n')
 		{
 			len++;
 			i++;

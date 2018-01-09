@@ -6,47 +6,37 @@
 /*   By: ccharrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 18:51:58 by ccharrie          #+#    #+#             */
-/*   Updated: 2017/11/14 18:55:12 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/12/01 14:41:40 by ccharrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		ft_error(char *str, int fd)
-{
-	ft_putstr(str);
-	exit(fd);
-}
-
-int		ft_check(char **str, int nb_line)
-{
-	ft_check_size(str, nb_line);
-	ft_putstr("CHECK SIZE PASS\n");
-	ft_check_char(str, nb_line);
-	ft_putstr("CHECK CHAR PASS \n");
-	ft_check_tetris_number(str, nb_line);
-	ft_putstr("CHECK TETRIS PASS \n");
-	return (0);
-}
-
 int		ft_check_size(char **str, int nb_line)
 {
 	int		i;
 	int		j;
+	int		cpt;
 
 	i = 0;
-	j = 0;
+	cpt = 0;
 	while (i < nb_line)
 	{
 		j = 0;
 		while (str[i][j] != '\n')
 			j++;
-		if (j != 4)
-			ft_error("Error: Wrong shape !\n", 1);
-		i++;
+		if (str[i][0] != '\n' && j != 4)
+			return (1);
 		if (i < nb_line && str[i][0] == '\n')
+		{
 			i++;
+			cpt = 0;
+		}
+		i++;
+		cpt++;
 	}
+	if (cpt != 4)
+		return (1);
 	return (0);
 }
 
@@ -62,39 +52,60 @@ int		ft_check_char(char **str, int nb_line)
 		while (str[i][j] != '\n')
 		{
 			if (str[i][j] != '.' && str[i][j] != '#')
-				ft_error("Error: Wrong caracter\n", 1);
+				return (1);
 			j++;
 		}
 		i++;
 		if (i < nb_line && str[i][0] == '\n')
+		{
+			if (i + 1 < nb_line && str[i + 1][0] == '\n')
+				return (1);
 			i++;
+		}
 	}
 	return (0);
 }
 
-int		ft_check_tetris_number(char **str, int nb_line)
+int		ft_check_tetris_number(char **str, int nb_line, t_var *var)
 {
-	int		i;
-	int		j;
-	int		nb_tetris;
-
-	i = 0;
-	nb_tetris = 0;
-	while (i < nb_line)
+	while (var->i < nb_line)
 	{
-		j = 0;
-		while (str[i][j] != '\n')
+		var->j = 0;
+		while (str[var->i][var->j] != '\n')
 		{
-			if (str[i][j] == '#')
-				nb_tetris++;
-			j++;
+			if (str[var->i][var->j] == '#')
+			{
+				var->nb_tetris++;
+				var->lk = var->lk + ft_check_link(str, nb_line, var->i, var->j);
+			}
+			var->j++;
 		}
-		i++;
-		if (i < nb_line && str[i][0] == '\n')
+		var->i++;
+		if (var->i < nb_line && str[var->i][0] == '\n')
 		{
-			nb_tetris = 0;
-			i++;
+			if (var->nb_tetris != 4 || var->lk < 3)
+				return (1);
+			var->nb_tetris = 0;
+			var->lk = 0;
+			var->i++;
 		}
 	}
+	if (var->nb_tetris != 4 || var->lk < 3)
+		return (1);
 	return (0);
+}
+
+int		ft_check_link(char **str, int nb_line, int i, int j)
+{
+	int		link;
+
+	link = 0;
+	if (i + 1 < nb_line)
+	{
+		if (str[i + 1][j] == '#')
+			link++;
+	}
+	if (str[i][j + 1] == '#')
+		link++;
+	return (link);
 }

@@ -6,13 +6,13 @@
 /*   By: aparabos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:21:07 by aparabos          #+#    #+#             */
-/*   Updated: 2017/11/13 14:41:44 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/11/22 10:27:45 by aparabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char	**ft_changechar(char **str)
+char	**ft_changechar(char **str, int nb_line)
 {
 	int		i;
 	int		j;
@@ -21,7 +21,7 @@ char	**ft_changechar(char **str)
 	i = 0;
 	j = 0;
 	carac = 'A';
-	while (str[i])
+	while (i < nb_line)
 	{
 		if (str[i][0] == '\n')
 		{

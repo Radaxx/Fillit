@@ -6,7 +6,7 @@
 /*   By: aparabos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:47:01 by aparabos          #+#    #+#             */
-/*   Updated: 2017/11/14 16:19:10 by aparabos         ###   ########.fr       */
+/*   Updated: 2017/11/22 14:06:16 by aparabos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_putnbr(int nb)
 	if (nb < 10)
 		ft_putchar(nb % 10 + 48);
 }
+
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
 	char	*tmp;
